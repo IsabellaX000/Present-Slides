@@ -85,22 +85,24 @@ function PDFViewer({ file, currentPage, onPageChange, onTotalPagesChange }) {
 
       const containerWidth = container.clientWidth || window.innerWidth * 0.6
       const containerHeight = container.clientHeight || window.innerHeight - 120
-      
+      const dpr = window.devicePixelRatio || 1
+
       const viewport = page.getViewport({ scale: 1.0 })
-      const scale = Math.min(
-        containerWidth / viewport.width,
-        containerHeight / viewport.height,
-        2.0 // Max scale to prevent too large images
-      ) * 0.95 // 95% to add some padding
+      const logicalScale = Math.min(
+        (containerWidth / viewport.width) * 0.98,
+        (containerHeight / viewport.height) * 0.98
+      )
+      const pixelScale = logicalScale * dpr
+      const pixelViewport = page.getViewport({ scale: pixelScale })
 
-      const scaledViewport = page.getViewport({ scale })
-
-      canvas.height = scaledViewport.height
-      canvas.width = scaledViewport.width
+      canvas.width = pixelViewport.width
+      canvas.height = pixelViewport.height
+      canvas.style.width = `${logicalScale * viewport.width}px`
+      canvas.style.height = `${logicalScale * viewport.height}px`
 
       await page.render({
         canvasContext: context,
-        viewport: scaledViewport
+        viewport: pixelViewport
       }).promise
     } catch (err) {
       console.error('Error rendering page:', err)

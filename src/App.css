@@ -14,9 +14,10 @@
 
 .pdf-container {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #525252;
   overflow: hidden;
 }
 
