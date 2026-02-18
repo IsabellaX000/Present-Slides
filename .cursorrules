@@ -1,0 +1,6 @@
+# Present Slides – Cursor rules
+
+- This is a **React + Vite** frontend only (no backend). API keys are in `.env` as `VITE_*`.
+- **Context**: Read `CONTEXT.md` for full project summary, stack, key files, and behavior so you can continue work without re-discovering the codebase.
+- **AI explanations**: Generated in `src/App.jsx` via Groq (first) or Gemini; one run per PDF for all pages. Side panel in `src/components/SidePanel.jsx` uses react-markdown + remark-math + rehype-katex for Markdown and LaTeX.
+- **PDF**: Rendered in `src/components/PDFViewer.jsx` with PDF.js; canvas uses devicePixelRatio for sharp display and fills the left column.
